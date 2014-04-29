@@ -1,0 +1,12 @@
+{
+  "name": "viewrss",
+  "main": "index.html",
+  "window": {
+    "width": 1200,
+    "height": 900,
+    "position": "center",
+    "toolbar": true,
+    "title": "ViewRSS",
+    "resizable": true
+  }
+}

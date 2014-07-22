@@ -1,17 +1,59 @@
 <!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>ViewRSS</title>
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body>
-    <button id="prev" type="button">Prev</button>
-    <button id="next" type="button">Next</button>
-    <button id="com" type="button">Comments/Page</button>
-    <div id="link"></div>
-    <div id="frame"></div>
+<html ng-app="app">
+	<head>
+		<meta charset="utf-8">
+		<title>ViewRSS</title>
+		<link rel="stylesheet" href="css/style.css" />
+	</head>
+	<body>
+		<div id="frame" ng-controller="UrlsCtrl" ng-init="url = urls[0]">
+	    	<button ng-click="url = urls[getPrev()]">Prev</button>
+			<button ng-click="url = urls[getNext()]">Next</button>
+	    	<iframe ng-src="{{trustSrc(url)}}" frameborder="0" nwdisable nwfaketop></iframe>
+		</div>
 
-    <script src="js/app.js"></script>
-  </body>
+	<script type="text/javascript" src="lib/angular.min.js"></script>
+	<script type="text/javascript">
+
+	var app = angular.module('app', []);
+
+	app.controller('UrlsCtrl', ['$scope', '$sce', function($scope, $sce){
+
+		index = 0;
+
+		$scope.trustSrc = function(src) {
+			return $sce.trustAsResourceUrl(src);
+		};
+
+		$scope.getNext = function() {
+			if (index + 1 == $scope.urls.length) {
+				alert("No more content");
+				return index;
+			}
+			return index += 1;
+		};
+
+		$scope.getPrev = function() {
+			if (index == 0) {
+				alert("No previous content");
+				return index;
+			}
+			return index -= 1;
+		}
+
+		$scope.urls = [
+			'http://www.google.com',
+			'http://www.cs.cmu.edu/~jbigham/posts/2014/half-workday-as-turker.html',
+			'https://productforums.google.com/forum/#!category-topic/chrome/8PMxG69VJ6o',
+			'http://stephensclafani.com/2014/07/08/hacking-facebooks-legacy-api-part-1-making-calls-on-behalf-of-any-user/',
+			'http://opentype.info/blog/2013/07/03/color-emoji-in-windows-8-1-the-future-of-color-fonts/',
+			'https://news.ycombinator.com/item?id=8006869',
+			'http://www.panic.com/blog/punchclock-fun-with-ibeacons/',
+			'http://new-www.haskell.org/'
+		];
+
+	}]);
+
+	</script>
+	</body>
 </html>

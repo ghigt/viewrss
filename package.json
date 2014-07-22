@@ -8,5 +8,8 @@
     "toolbar": true,
     "title": "ViewRSS",
     "resizable": true
+  },
+  "webkit": {
+    "plugin": true
   }
 }

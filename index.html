@@ -3,53 +3,280 @@
 	<head>
 		<meta charset="utf-8">
 		<title>ViewRSS</title>
-		<link rel="stylesheet" href="css/style.css" />
+		<!--<link rel="stylesheet" href="css/style.css" />-->
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	</head>
 	<body>
-		<div id="frame" ng-controller="UrlsCtrl" ng-init="url = urls[0]">
+		
+		<header>
+			<div class="navbar navbar-default">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#/">ViewRSS</a>
+				</div>
+			</div>
+		</header>
+
+		<div class="container">
+			
+			<div class="row" ng-controller="FeedsCtrl">
+
+				<h1>Feeds</h1>
+
+				<hr />
+
+				<div ng-repeat="feed in feeds" class="col-sm-3">
+					<div class="thumbnail">
+
+						<img ng-src="http://lorempicsum.com/futurama/350/150/{{feed.id}}" width="100%">
+
+						<h3>{{feed.title | limitTo:20}}</h3>
+
+						<p><a href="{{feed.link}}">{{feed.link | limitTo: 30}}</a></p>
+
+						<p>
+							<a href="#" class="btn btn-primary btn-sm">Sories</a>
+						</p>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<!-- <div id="frame" ng-controller="UrlsCtrl" ng-init="url = urls[0]">
 	    	<button ng-click="url = urls[getPrev()]">Prev</button>
 			<button ng-click="url = urls[getNext()]">Next</button>
 	    	<iframe ng-src="{{trustSrc(url)}}" frameborder="0" nwdisable nwfaketop></iframe>
-		</div>
+		</div> -->
 
+	<script type="text/javascript" src="lib/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="lib/bootstrap.min.js"></script>
 	<script type="text/javascript" src="lib/angular.min.js"></script>
 	<script type="text/javascript">
 
 	var app = angular.module('app', []);
 
-	app.controller('UrlsCtrl', ['$scope', '$sce', function($scope, $sce){
-
-		index = 0;
+	app.controller('FeedsCtrl', ['$scope', '$sce', function($scope, $sce){
 
 		$scope.trustSrc = function(src) {
 			return $sce.trustAsResourceUrl(src);
 		};
 
-		$scope.getNext = function() {
-			if (index + 1 == $scope.urls.length) {
-				alert("No more content");
-				return index;
-			}
-			return index += 1;
-		};
-
-		$scope.getPrev = function() {
-			if (index == 0) {
-				alert("No previous content");
-				return index;
-			}
-			return index -= 1;
-		}
-
-		$scope.urls = [
-			'http://www.google.com',
-			'http://www.cs.cmu.edu/~jbigham/posts/2014/half-workday-as-turker.html',
-			'https://productforums.google.com/forum/#!category-topic/chrome/8PMxG69VJ6o',
-			'http://stephensclafani.com/2014/07/08/hacking-facebooks-legacy-api-part-1-making-calls-on-behalf-of-any-user/',
-			'http://opentype.info/blog/2013/07/03/color-emoji-in-windows-8-1-the-future-of-color-fonts/',
-			'https://news.ycombinator.com/item?id=8006869',
-			'http://www.panic.com/blog/punchclock-fun-with-ibeacons/',
-			'http://new-www.haskell.org/'
+		$scope.feeds = [
+						  {
+						    "id": 1,
+						    "title": "Lorem ullamco tempor commodo Lorem culpa quis in.",
+						    "link": "http://nostrud.voluptate.com",
+						    "description": "Velit ad laboris ad irure excepteur sunt. Do dolor duis anim sit.",
+						    "date": "Thu Sep 20 2007 01:26:21 GMT+0100 (BST)",
+						    "stories": [
+						      {
+						        "id": 1,
+						        "title": "Laborum exercitation minim amet sint enim adipisicing minim.",
+						        "link": "http://anim.aute.com",
+						        "description": "Eu nostrud reprehenderit incididunt ea commodo tempor reprehenderit laboris ex consectetur voluptate amet nostrud. Exercitation culpa officia et eu ea non aliqua nostrud sit.",
+						        "date": "Wed Oct 01 1997 07:36:17 GMT+0100 (BST)",
+						        "content": "Sint culpa sit ex commodo dolore mollit ipsum consectetur fugiat officia ut irure nulla. Quis quis esse deserunt laborum aute Lorem cupidatat. Aliquip occaecat aliqua magna non quis irure amet reprehenderit mollit minim. Mollit sint est commodo aliquip. Consequat sint pariatur voluptate velit ipsum fugiat ea ad dolor duis consectetur. Nulla cupidatat magna laboris ut sit."
+						      },
+						      {
+						        "id": 2,
+						        "title": "Excepteur velit adipisicing ex sit ipsum eiusmod reprehenderit velit consequat exercitation.",
+						        "link": "http://officia.eiusmod.com",
+						        "description": "Minim enim elit labore elit non pariatur id adipisicing laboris cillum mollit. Culpa aliquip ipsum ea tempor.",
+						        "date": "Fri Sep 29 1972 05:16:02 GMT+0100 (BST)",
+						        "content": "Eiusmod ullamco amet ex ipsum dolor minim sit. Proident cillum incididunt sunt elit commodo dolore. Dolor consectetur Lorem sint et magna ex voluptate aute exercitation anim magna sunt. Mollit adipisicing sunt enim do duis laboris quis deserunt voluptate nostrud eu pariatur. Quis ex Lorem eiusmod est magna velit enim id mollit consequat laborum cupidatat. Aliquip voluptate minim tempor duis eiusmod fugiat consequat."
+						      },
+						      {
+						        "id": 3,
+						        "title": "Occaecat consectetur sit exercitation amet esse nulla proident nisi esse qui veniam irure.",
+						        "link": "http://veniam.dolor.com",
+						        "description": "Dolor est ea laboris anim velit. Excepteur adipisicing sint veniam sint esse consequat ea consequat.",
+						        "date": "Fri Feb 13 1976 21:49:42 GMT+0000 (GMT)",
+						        "content": "Qui commodo enim cupidatat ad aute sint. Est culpa cupidatat mollit elit veniam qui laboris laborum cillum. Nisi eu duis tempor nostrud et dolore excepteur amet deserunt in anim reprehenderit non. Ullamco consequat laboris id officia consequat cillum consectetur anim veniam tempor mollit. Ad reprehenderit velit et esse consectetur. Laboris labore consectetur eu ut sunt incididunt labore deserunt."
+						      },
+						      {
+						        "id": 4,
+						        "title": "Culpa officia reprehenderit dolor duis consequat incididunt Lorem dolore labore aute commodo elit voluptate.",
+						        "link": "http://labore.veniam.com",
+						        "description": "Anim sunt Lorem quis magna irure proident pariatur velit. Eu amet consectetur adipisicing est anim nulla.",
+						        "date": "Tue Oct 25 1977 15:20:05 GMT+0000 (GMT)",
+						        "content": "Labore in in duis anim veniam aute consequat. Proident cupidatat sint Lorem non cupidatat minim id ullamco mollit. Nisi reprehenderit eiusmod velit veniam laboris. Culpa culpa est eu sint anim duis in. Non eu nulla labore commodo excepteur laboris ad laboris dolor do ipsum labore. Deserunt nulla officia incididunt dolore."
+						      }
+						    ]
+						  },
+						  {
+						    "id": 2,
+						    "title": "Ut incididunt aute enim dolore sunt fugiat ad anim ipsum ullamco non qui qui.",
+						    "link": "http://ex.cupidatat.com",
+						    "description": "Cupidatat officia cupidatat tempor tempor exercitation aliqua voluptate consequat. Adipisicing reprehenderit esse exercitation est fugiat nisi commodo tempor dolor aute cupidatat.",
+						    "date": "Thu Oct 03 1996 11:29:46 GMT+0100 (BST)",
+						    "stories": [
+						      {
+						        "id": 1,
+						        "title": "In magna velit Lorem culpa.",
+						        "link": "http://laborum.quis.com",
+						        "description": "Ullamco exercitation est deserunt incididunt do nostrud enim. Exercitation velit anim amet et quis culpa mollit velit pariatur.",
+						        "date": "Fri Jul 10 2009 16:03:48 GMT+0100 (BST)",
+						        "content": "Reprehenderit aute dolor sit commodo irure esse. Minim aute mollit enim incididunt aliquip non dolore est sint excepteur tempor officia. Sunt cillum id irure eu. Incididunt commodo sint ut cillum irure nulla irure id adipisicing dolore dolore laborum. Dolor dolor sunt elit non anim minim eu in deserunt. Amet exercitation sunt amet proident esse qui ipsum elit aliqua magna."
+						      },
+						      {
+						        "id": 2,
+						        "title": "Veniam et nulla quis laborum ex velit non.",
+						        "link": "http://enim.ut.com",
+						        "description": "Velit velit dolore aute ad incididunt est irure consequat amet pariatur anim. Id sunt fugiat qui aliqua elit esse excepteur.",
+						        "date": "Sun Dec 27 1970 10:47:16 GMT+0000 (BST)",
+						        "content": "Magna sit esse consequat laboris magna fugiat non aliqua occaecat excepteur quis. Commodo culpa ut ea ex ut. Ex laborum nostrud quis cupidatat mollit ullamco nostrud tempor. Est voluptate consequat adipisicing deserunt irure minim. Dolor est irure quis cillum adipisicing ea enim sunt laborum pariatur cupidatat commodo commodo occaecat. Esse labore sit sint laboris magna veniam sint sunt ipsum mollit labore."
+						      },
+						      {
+						        "id": 3,
+						        "title": "Lorem ullamco enim qui irure aliquip ex culpa Lorem.",
+						        "link": "http://mollit.nisi.com",
+						        "description": "Sunt voluptate labore et cillum quis anim qui. Aliqua quis dolor dolore occaecat elit ullamco et cupidatat incididunt veniam anim.",
+						        "date": "Mon Sep 02 1985 17:10:46 GMT+0100 (BST)",
+						        "content": "In voluptate tempor deserunt cillum sit aute ipsum. Aliquip nisi adipisicing ea et dolore culpa ullamco amet. Enim aliquip Lorem dolore labore magna et cupidatat magna. Mollit incididunt laboris eiusmod id sunt. Aute commodo nulla occaecat eu ex nulla do ut pariatur veniam. Minim culpa exercitation enim laboris esse do sit sit laborum ut cupidatat quis laboris."
+						      }
+						    ]
+						  },
+						  {
+						    "id": 3,
+						    "title": "Ad esse culpa qui id.",
+						    "link": "http://cillum.aliqua.com",
+						    "description": "Aliquip laborum ea do sint irure eu exercitation veniam consequat dolor. Non consectetur ullamco excepteur nostrud proident ad id consectetur laboris.",
+						    "date": "Thu Jul 06 1978 19:00:23 GMT+0100 (BST)",
+						    "stories": [
+						      {
+						        "id": 1,
+						        "title": "Ea ad Lorem excepteur velit veniam non aliquip eu mollit sunt.",
+						        "link": "http://nostrud.anim.com",
+						        "description": "Labore occaecat irure exercitation veniam officia enim pariatur anim ipsum. Et non ullamco veniam ullamco cupidatat dolor do pariatur do esse nulla incididunt.",
+						        "date": "Tue Jul 06 2010 03:51:43 GMT+0100 (BST)",
+						        "content": "Ea proident Lorem ipsum aute anim mollit qui non et dolor aliqua dolore. Do excepteur consectetur aute sunt incididunt anim eu mollit ex mollit officia. Mollit ex nulla culpa anim mollit excepteur magna minim aliquip dolor Lorem non eu. Id laboris velit qui labore esse aute sint ullamco est anim Lorem amet. Proident nulla id officia deserunt aute voluptate irure in occaecat proident. Incididunt nulla deserunt consectetur voluptate dolore ut commodo aliquip aliquip."
+						      },
+						      {
+						        "id": 2,
+						        "title": "Consequat cupidatat fugiat anim in Lorem do velit excepteur.",
+						        "link": "http://ullamco.dolore.com",
+						        "description": "Proident enim ex proident deserunt anim dolore et minim duis commodo. Dolore do et voluptate aliquip cillum non sint laboris Lorem id.",
+						        "date": "Tue May 09 1989 18:20:49 GMT+0100 (BST)",
+						        "content": "Duis officia cupidatat officia dolore Lorem esse incididunt irure excepteur dolore. Consectetur enim nostrud do tempor mollit. Enim ipsum aliquip cillum reprehenderit irure esse do quis fugiat occaecat tempor. Reprehenderit commodo do ea aliqua non et tempor dolore labore minim consectetur commodo. Aliquip et quis dolore aliquip anim aliquip proident dolore nulla mollit ex ullamco. Velit aute consectetur duis consectetur excepteur incididunt amet ullamco eiusmod."
+						      },
+						      {
+						        "id": 3,
+						        "title": "Nisi cillum excepteur labore in sunt ullamco tempor pariatur in duis magna nostrud incididunt.",
+						        "link": "http://ea.laborum.com",
+						        "description": "Occaecat sint velit eiusmod reprehenderit cillum duis. Sunt ad velit ea esse laboris velit velit amet laboris excepteur nostrud do proident.",
+						        "date": "Tue Feb 07 1995 07:20:49 GMT+0000 (GMT)",
+						        "content": "Enim dolor id mollit ut amet. Ullamco nulla ullamco proident id officia ad. In ad ipsum nostrud dolore est. Exercitation deserunt ullamco officia aliqua mollit cillum et. Amet ea occaecat exercitation eu. Aliqua tempor adipisicing eiusmod nostrud quis id elit qui cillum non sunt ad ad."
+						      }
+						    ]
+						  },
+						  {
+						    "id": 4,
+						    "title": "Proident fugiat commodo aliqua non voluptate culpa aliquip nostrud sint consequat.",
+						    "link": "http://amet.tempor.com",
+						    "description": "Enim cupidatat et qui cillum fugiat excepteur eu cillum. Dolore eu elit sunt ullamco sit est amet qui in voluptate aliqua ad proident.",
+						    "date": "Sat Apr 06 2002 21:32:12 GMT+0100 (BST)",
+						    "stories": [
+						      {
+						        "id": 1,
+						        "title": "Commodo enim qui duis do ullamco.",
+						        "link": "http://aute.esse.com",
+						        "description": "Deserunt fugiat in ullamco non non pariatur dolore aliqua voluptate proident ut eu sit. Ut pariatur exercitation commodo nisi est id duis.",
+						        "date": "Wed Dec 01 2004 22:23:22 GMT+0000 (GMT)",
+						        "content": "Reprehenderit ad elit aliqua exercitation cillum aliquip cillum minim eu adipisicing et laboris commodo elit. Incididunt eu dolor sint eu non eiusmod ut. Nulla duis occaecat commodo in minim excepteur occaecat ullamco. Cillum reprehenderit in aliqua ad veniam duis. Laboris anim consectetur ex ad Lorem voluptate cillum ullamco labore officia. Officia eu sit labore id est."
+						      },
+						      {
+						        "id": 2,
+						        "title": "Aliqua culpa irure amet laborum laboris tempor.",
+						        "link": "http://mollit.elit.com",
+						        "description": "Ea id cillum ex deserunt veniam proident nisi elit nisi. Adipisicing consectetur eiusmod exercitation ullamco dolor ex.",
+						        "date": "Thu Dec 09 1982 19:41:33 GMT+0000 (GMT)",
+						        "content": "Enim non eiusmod magna dolor sit. Consectetur pariatur excepteur aute nostrud id proident laboris ullamco pariatur culpa dolor veniam. Esse deserunt ipsum duis excepteur do Lorem sunt. Quis laboris adipisicing qui sint ullamco. Aliquip nostrud culpa exercitation sit fugiat nisi sunt ea consectetur. Ea nostrud id non occaecat ex incididunt tempor officia amet anim sunt."
+						      },
+						      {
+						        "id": 3,
+						        "title": "Exercitation fugiat esse occaecat aute ad proident eu quis officia laboris non ad dolore incididunt.",
+						        "link": "http://in.Lorem.com",
+						        "description": "Occaecat mollit minim sunt dolore magna nulla nisi. Est fugiat amet officia ipsum consequat sit et mollit laboris veniam excepteur.",
+						        "date": "Sun Jan 04 1987 22:24:04 GMT+0000 (GMT)",
+						        "content": "Anim ut labore dolor id proident in aliqua aute eu reprehenderit irure veniam. Laboris proident exercitation non exercitation officia cillum dolor est culpa ad duis elit. Cupidatat nisi laboris reprehenderit Lorem consectetur laboris ut ut commodo aliquip eu irure. Adipisicing nulla ipsum irure do sunt occaecat ea deserunt cupidatat. Id ea sint excepteur officia aliqua in magna. Lorem ad minim sit nostrud aute nisi qui excepteur tempor."
+						      },
+						      {
+						        "id": 4,
+						        "title": "Minim ex anim nulla sint aliqua dolor excepteur.",
+						        "link": "http://laboris.et.com",
+						        "description": "Fugiat dolor irure aliquip ut reprehenderit reprehenderit est eu cillum reprehenderit aliquip enim pariatur. Velit nulla reprehenderit consequat ut quis nulla nostrud dolor ut.",
+						        "date": "Fri Mar 15 1996 21:15:14 GMT+0000 (GMT)",
+						        "content": "Ullamco esse magna tempor voluptate do. Non consequat laboris ex aute culpa ipsum proident. Aliquip occaecat minim in adipisicing excepteur voluptate consequat proident Lorem ut sint. Irure occaecat enim cupidatat esse dolor commodo id. Culpa qui eiusmod reprehenderit in nulla proident ad enim cillum fugiat deserunt cupidatat aute. Voluptate Lorem nostrud laborum adipisicing nostrud minim exercitation incididunt aliqua."
+						      }
+						    ]
+						  },
+						  {
+						    "id": 5,
+						    "title": "Quis nostrud qui incididunt ipsum non.",
+						    "link": "http://do.dolore.com",
+						    "description": "Consectetur ullamco duis minim quis sit elit dolor velit veniam fugiat esse aliquip fugiat. Laboris ut consectetur fugiat nulla nulla elit quis ullamco enim quis officia incididunt.",
+						    "date": "Tue Oct 03 1989 09:36:54 GMT+0100 (BST)",
+						    "stories": [
+						      {
+						        "id": 1,
+						        "title": "Reprehenderit quis id exercitation aliqua laborum sint laborum cillum quis enim cillum do quis reprehenderit.",
+						        "link": "http://irure.proident.com",
+						        "description": "Laborum dolor occaecat irure et sunt est aliqua reprehenderit irure. Fugiat ut excepteur aliquip nisi qui tempor enim cupidatat proident sunt dolore.",
+						        "date": "Fri Jan 29 1988 20:40:52 GMT+0000 (GMT)",
+						        "content": "Consectetur excepteur laborum in aute fugiat non deserunt laboris. Nisi ea ut dolor occaecat. Eu ipsum quis nisi do aliquip esse consectetur in quis. Lorem consectetur exercitation nulla cillum mollit elit fugiat. Nulla dolor sit Lorem veniam duis. Ad non non adipisicing irure ut et deserunt tempor adipisicing quis esse."
+						      },
+						      {
+						        "id": 2,
+						        "title": "Non voluptate enim ea reprehenderit.",
+						        "link": "http://occaecat.aliquip.com",
+						        "description": "Ut adipisicing voluptate dolore duis Lorem. Eiusmod commodo non voluptate id ullamco.",
+						        "date": "Sat Aug 19 1978 17:05:40 GMT+0100 (BST)",
+						        "content": "Quis et tempor incididunt cupidatat commodo officia minim eu pariatur ea aliquip nostrud magna anim. Consequat consequat duis dolore ipsum. Laborum voluptate excepteur nostrud incididunt labore cupidatat do. Labore consectetur aute culpa ea minim. Laboris culpa aliquip quis id. Fugiat veniam dolore ullamco ea eu culpa reprehenderit amet consectetur cillum non ad."
+						      },
+						      {
+						        "id": 3,
+						        "title": "Cupidatat eiusmod deserunt dolore nisi fugiat elit ea elit adipisicing adipisicing occaecat adipisicing.",
+						        "link": "http://nostrud.velit.com",
+						        "description": "Dolor culpa non velit incididunt Lorem duis veniam in nulla. Exercitation veniam voluptate deserunt voluptate dolor sint qui ullamco et et id culpa.",
+						        "date": "Sat Jun 06 1970 19:22:35 GMT+0000 (BST)",
+						        "content": "Nulla culpa qui quis labore commodo qui adipisicing laboris sunt cillum fugiat anim eu exercitation. Aliquip velit sunt est ea tempor minim eiusmod duis consequat tempor irure. Culpa mollit sunt eu irure veniam ut sint sint adipisicing eu et officia amet sint. Lorem eiusmod non ad ex do culpa aliqua labore tempor dolore non magna deserunt aliquip. Cupidatat labore elit quis incididunt laborum. Tempor adipisicing magna aliqua ex."
+						      }
+						    ]
+						  },
+						  {
+						    "id": 6,
+						    "title": "Voluptate sunt do aute quis nulla esse.",
+						    "link": "http://labore.voluptate.com",
+						    "description": "Dolore duis officia sunt cillum commodo aliqua consequat deserunt cillum incididunt cillum aute sunt. Eiusmod eiusmod aliqua fugiat labore id pariatur quis do irure Lorem.",
+						    "date": "Sun Aug 18 1991 14:49:17 GMT+0100 (BST)",
+						    "stories": [
+						      {
+						        "id": 1,
+						        "title": "Qui ea consequat dolor nostrud enim deserunt enim minim duis ipsum pariatur exercitation non.",
+						        "link": "http://elit.duis.com",
+						        "description": "Nisi aute laborum ipsum amet et id ipsum cillum ad dolor adipisicing nostrud. Excepteur dolor ex labore commodo cupidatat ullamco.",
+						        "date": "Mon Feb 17 2014 18:53:57 GMT+0000 (GMT)",
+						        "content": "Cillum sunt consectetur in do ea. Duis tempor ad elit duis sit id. Sunt dolor dolor sint nisi ullamco sit. Lorem sit pariatur amet irure exercitation in officia incididunt ullamco laboris voluptate elit adipisicing. Nisi voluptate mollit labore et in eiusmod ut aliqua ea nisi consectetur aliqua in ullamco. Eiusmod ex esse et do non commodo et eiusmod velit Lorem cillum id ut elit."
+						      },
+						      {
+						        "id": 2,
+						        "title": "Qui non commodo irure qui excepteur qui nostrud ea nostrud magna dolor dolor.",
+						        "link": "http://ad.et.com",
+						        "description": "Officia mollit ut do enim sit eiusmod adipisicing Lorem elit. Sint est reprehenderit et pariatur nulla enim.",
+						        "date": "Thu Apr 19 1990 02:25:22 GMT+0100 (BST)",
+						        "content": "Sit officia non ad ad laboris nostrud. Anim officia qui proident ut tempor exercitation et. Labore excepteur excepteur voluptate commodo nostrud non eu cillum nulla commodo. Aliquip fugiat mollit occaecat dolore velit occaecat deserunt aliquip et laboris proident aliqua. Anim amet excepteur occaecat elit ad adipisicing do proident voluptate deserunt dolore. Ea do dolore cupidatat Lorem pariatur adipisicing."
+						      },
+						      {
+						        "id": 3,
+						        "title": "Ut ea culpa aute velit commodo adipisicing esse culpa consequat sint quis occaecat.",
+						        "link": "http://laboris.labore.com",
+						        "description": "Do ea qui pariatur voluptate esse ea. Amet commodo quis sunt veniam sint mollit tempor.",
+						        "date": "Sat Feb 23 1974 14:01:37 GMT+0000 (GMT)",
+						        "content": "Officia cupidatat sint cupidatat aliqua labore consectetur cillum Lorem commodo et ullamco Lorem. Nostrud aliqua reprehenderit qui sit velit commodo officia sint aliquip est cillum occaecat commodo. Excepteur eu exercitation aute eiusmod Lorem cupidatat nulla. Minim in in culpa excepteur fugiat fugiat ad aliquip irure cupidatat. Ut incididunt Lorem officia elit incididunt aliqua sit in cupidatat pariatur enim labore. Voluptate nostrud nisi adipisicing labore incididunt id incididunt fugiat sunt."
+						      }
+						    ]
+						  }
 		];
 
 	}]);
